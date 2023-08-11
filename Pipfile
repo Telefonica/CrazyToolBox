@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+web3 = "~=6.8.0"
+pyside6 = "~=6.5.2"
+requests = "~=2.31.0"
+ratelimit = "~=2.2.1"
+pyperclip = "~=1.8.2"
+
+[dev-packages]
+
+[requires]
+python_version = "3.11"
