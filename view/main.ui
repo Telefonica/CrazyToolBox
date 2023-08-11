@@ -17,7 +17,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>CrazyToolBox</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -969,6 +969,28 @@ li.checked::marker { content: &quot;\2612&quot;; }
     </item>
    </layout>
   </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>600</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuAbout">
+    <property name="title">
+     <string>About</string>
+    </property>
+    <addaction name="licenseAttributionsAction"/>
+   </widget>
+   <addaction name="menuAbout"/>
+  </widget>
+  <action name="licenseAttributionsAction">
+   <property name="text">
+    <string>Licenses attribution</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

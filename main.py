@@ -21,6 +21,7 @@ import os
 
 from PySide6.QtCore import QObject, Signal, Slot, QFile, QTimer
 from PySide6.QtUiTools import QUiLoader
+from PySide6.QtGui import QAction
 from PySide6.QtWidgets import (
     QApplication,
     QCheckBox,
@@ -130,6 +131,26 @@ def reset_gui():
     result_signal.function_signature.emit("")
 
 
+def render_licenses():
+    # Load the UI
+    licenses_ui_file = QFile(os.path.join(os.path.dirname(__file__), "view", "licenses.ui"))
+    licenses_ui_file.open(QFile.ReadOnly)
+    licenses_loader = QUiLoader()
+
+    # Set the window
+    licenses_window = licenses_loader.load(licenses_ui_file)
+
+    licenseAttributionsText = licenses_window.findChild(QTextEdit, "licenseAttributionsText")
+    closeButton = licenses_window.findChild(QPushButton, "closeButton")
+
+    license_attributions = open(os.path.join(os.path.dirname(__file__), "license_attributions.txt"), "r", encoding="utf-8").read()
+    licenseAttributionsText.setPlainText(license_attributions)
+    closeButton.clicked.connect(lambda: licenses_window.close())
+
+    # Show the window
+    licenses_window.show()
+
+
 #####################
 #      SIGNALS      #
 #####################
@@ -173,7 +194,6 @@ if __name__ == "__main__":
 
     # Set the window
     window = loader.load(ui_file)
-    window.setWindowTitle("Crazy ToolBox")
 
     # Connect the signals
     result_signal = ResultSignal()
@@ -189,9 +209,11 @@ if __name__ == "__main__":
     copyButton = window.findChild(QPushButton, "copyButton")
     outputLabel = window.findChild(QTextEdit, "outputLabel")
     tabWidget = window.findChild(QTabWidget, "tabWidget")
+    licenseAttributionsAction = window.findChild(QAction, "licenseAttributionsAction")
 
     copyButton.clicked.connect(copy_result)
     tabWidget.currentChanged.connect(reset_gui)
+    licenseAttributionsAction.triggered.connect(render_licenses)
 
     # Wei converter
     weiConverterInput = window.findChild(QPlainTextEdit, "weiConverterInput")
